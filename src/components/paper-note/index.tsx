@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { ReactNode, useLayoutEffect, useRef, useState } from 'react'
 
 const PaperNote = ({
   className = '',
@@ -26,13 +26,31 @@ const PaperNote = ({
   // top tightening
   topSafe = 0,
   tightenTop = 90,
+}: {
+  children: ReactNode
+  className: string
+  tilt: number
+  topSrc: string
+  midSrc: string
+  bottomSrc: string
+  paddingX: string
+  paddingTop: string
+  paddingBottom: string
+  baseMidTileHeight: number
+  baseSeamOverlap: number
+  baseBottomOverlap: number
+  baseBottomSafe: number
+  baseExtraMidPixels: number
+  topOverlap: number
+  topSafe: number
+  tightenTop: number
 }) => {
   const measureRef = useRef(null)
   const rafRef = useRef(null)
 
-  const topImgRef = useRef(null)
-  const midImgRef = useRef(null)
-  const bottomImgRef = useRef(null)
+  const topImgRef = useRef<HTMLImageElement | null>(null)
+  const midImgRef = useRef<HTMLImageElement | null>(null)
+  const bottomImgRef = useRef<HTMLImageElement | null>(null)
 
   const [midCount, setMidCount] = useState(1)
   const [midHeight, setMidHeight] = useState(baseMidTileHeight)
