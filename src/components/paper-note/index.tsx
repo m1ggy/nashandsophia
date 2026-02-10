@@ -45,8 +45,8 @@ const PaperNote = ({
   topSafe: number
   tightenTop: number
 }) => {
-  const measureRef = useRef(null)
-  const rafRef = useRef(null)
+  const measureRef = useRef<HTMLDivElement | null>(null)
+  const rafRef = useRef<number | null>(null)
 
   const topImgRef = useRef<HTMLImageElement | null>(null)
   const midImgRef = useRef<HTMLImageElement | null>(null)
