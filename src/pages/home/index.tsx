@@ -12,6 +12,7 @@ export default function Home() {
       'Ericka Gonzalvo',
       'Mariestella Cruz',
       'Analee Casamina',
+      'Ria Ramos',
     ],
     gentlemen: [
       'Edison Taperla',
@@ -23,6 +24,7 @@ export default function Home() {
       'Geraldo Casamina',
       'Jaime Aguirre Viray',
       'Marco Jodan Catangay',
+      'Ludwigie Villaran',
     ],
   }
 

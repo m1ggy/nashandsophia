@@ -28,22 +28,22 @@ const PaperNote = ({
   tightenTop = 90,
 }: {
   children: ReactNode
-  className: string
-  tilt: number
-  topSrc: string
-  midSrc: string
-  bottomSrc: string
-  paddingX: string
-  paddingTop: string
-  paddingBottom: string
-  baseMidTileHeight: number
-  baseSeamOverlap: number
-  baseBottomOverlap: number
-  baseBottomSafe: number
-  baseExtraMidPixels: number
-  topOverlap: number
-  topSafe: number
-  tightenTop: number
+  className?: string
+  tilt?: number
+  topSrc?: string
+  midSrc?: string
+  bottomSrc?: string
+  paddingX?: string
+  paddingTop?: string
+  paddingBottom?: string
+  baseMidTileHeight?: number
+  baseSeamOverlap?: number
+  baseBottomOverlap?: number
+  baseBottomSafe?: number
+  baseExtraMidPixels?: number
+  topOverlap?: number
+  topSafe?: number
+  tightenTop?: number
 }) => {
   const measureRef = useRef<HTMLDivElement | null>(null)
   const rafRef = useRef<number | null>(null)
@@ -72,6 +72,9 @@ const PaperNote = ({
   useLayoutEffect(() => {
     const contentEl = measureRef.current
     if (!contentEl) return
+    const topImg = topImgRef.current
+    const midImg = midImgRef.current
+    const botImg = bottomImgRef.current
 
     const measure = () => {
       const renderedMidH = Math.ceil(midImgRef.current?.getBoundingClientRect().height || 0)
@@ -124,9 +127,9 @@ const PaperNote = ({
       ro.disconnect()
       window.removeEventListener('resize', schedule)
 
-      topImgRef.current?.removeEventListener('load', onImgLoad)
-      midImgRef.current?.removeEventListener('load', onImgLoad)
-      bottomImgRef.current?.removeEventListener('load', onImgLoad)
+      if (topImg) topImg?.removeEventListener('load', onImgLoad)
+      if (midImg) midImg?.removeEventListener('load', onImgLoad)
+      if (botImg) botImg?.removeEventListener('load', onImgLoad)
     }
   }, [
     children,
