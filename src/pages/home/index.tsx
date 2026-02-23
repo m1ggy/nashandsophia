@@ -1,5 +1,8 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import PaperNote from 'src/components/paper-note'
+import { HoverCard, HoverCardContent, HoverCardTrigger } from 'src/components/ui/hover-card'
+
 export default function Home() {
   const { t } = useTranslation('translation')
 
@@ -60,16 +63,40 @@ export default function Home() {
     </div>
   )
 
+  const AttireHover = ({ label, imgSrc, imgAlt }: { label: string; imgSrc: string; imgAlt: string }) => {
+    const [open, setOpen] = useState(false)
+
+    return (
+      <HoverCard open={open} onOpenChange={setOpen} openDelay={80} closeDelay={80}>
+        <HoverCardTrigger asChild>
+          <span
+            onClick={() => setOpen((prev) => !prev)}
+            className="cursor-pointer underline decoration-dotted underline-offset-4 hover:opacity-80"
+          >
+            {label}
+          </span>
+        </HoverCardTrigger>
+
+        <HoverCardContent
+          align="center"
+          side="top"
+          className="w-[280px] rounded-2xl border border-black/10 bg-white/90 backdrop-blur-md p-3 shadow-xl"
+        >
+          <div className="text-center">
+            <img src={imgSrc} alt={imgAlt} className="w-full rounded-xl" draggable={false} />
+            <div className="mt-2 text-xs opacity-70">{imgAlt}</div>
+          </div>
+        </HoverCardContent>
+      </HoverCard>
+    )
+  }
+
   return (
     <div className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
       <div className="mx-auto max-w-5xl px-6 sm:px-10">
         {/* HERO */}
         <section className="min-h-screen snap-start flex flex-col items-center justify-center text-center gap-6 py-20">
-          <h1 className="font-heading text-4xl sm:text-5xl tracking-[0.25em] uppercase">
-            {t('wedding.title', 'The Wedding of')}
-          </h1>
-
-          <div className="text-3xl sm:text-4xl">
+          <div className="text-7xl sm:text-8xl">
             <span className="font-romantic uppercase tracking-[0.25em]">{t('wedding.names', 'NASH & SOPHIA')}</span>
           </div>
 
@@ -82,7 +109,7 @@ export default function Home() {
             <CardBanner />
             <div className="p-10">
               <h2 className="font-heading text-3xl sm:text-4xl uppercase tracking-[0.22em]">
-                {t('invite.heading', 'INVITATION')}
+                {t('invite.heading', 'You are Invited')}
               </h2>
 
               <p className="mt-8 font-romantic-soft text-xl sm:text-2xl leading-relaxed text-balance">
@@ -103,7 +130,7 @@ export default function Home() {
                     <div className="font-heading uppercase tracking-[0.18em] opacity-70">
                       {t(`details.${label.toLowerCase()}Label`, label)}
                     </div>
-                    <div className="mt-3 text-xl">{value}</div>
+                    <div className="mt-3 text-4xl">{value}</div>
                   </div>
                 ))}
               </div>
@@ -131,10 +158,6 @@ export default function Home() {
           <div className="w-full max-w-3xl">
             <CardBanner />
             <div className="p-10">
-              <h2 className="font-heading text-3xl sm:text-4xl uppercase tracking-[0.22em] text-center">
-                {t('entourage.heading', 'INVITATION DETAILS')}
-              </h2>
-
               {/* ONE BIG PAPER NOTE — COLUMN LAYOUT */}
               <div className="mt-10">
                 <PaperNote tilt={0}>
@@ -242,14 +265,28 @@ export default function Home() {
                     <div className="font-heading text-sm uppercase tracking-[0.22em] opacity-70">
                       {t('attire.gentlemenLabel', 'Gentlemen')}
                     </div>
-                    <div className="mt-2 text-xl">{t('attire.gentlemen', 'Barong')}</div>
+
+                    <div className="mt-2 text-xl">
+                      <AttireHover
+                        label={t('attire.gentlemen', 'Barong')}
+                        imgSrc="/attire-barong.png"
+                        imgAlt="Gentlemen — Barong"
+                      />
+                    </div>
                   </div>
 
                   <div className="rounded-2xl glass-soft p-6">
                     <div className="font-heading text-sm uppercase tracking-[0.22em] opacity-70">
                       {t('attire.ladiesLabel', 'Ladies')}
                     </div>
-                    <div className="mt-2 text-xl">{t('attire.ladies', 'Formal dresses in soft pastel shades')}</div>
+
+                    <div className="mt-2 text-xl">
+                      <AttireHover
+                        label={t('attire.ladies', 'Formal dresses in soft pastel shades')}
+                        imgSrc="/attire-dress.png"
+                        imgAlt="Ladies — Pastel dress"
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -287,10 +324,7 @@ export default function Home() {
       </div>
 
       {/* THANK YOU */}
-      <section
-        className="min-h-screen snap-start flex items-center justify-center bg-cover bg-center px-6 py-20"
-        style={{ backgroundImage: "url('/background_bottom_footer.png')" }}
-      >
+      <section className="min-h-screen snap-start flex items-center justify-center bg-cover bg-center px-6 py-20">
         <div className="w-full max-w-3xl text-center">
           <CardBanner />
           <div className="p-12">
